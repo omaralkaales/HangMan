@@ -1,1 +1,1 @@
-hangman game is implemented with dynamic web interface, unfortunelty github supports static webpages only, but the source code is here to have a look at it. The game is coded using JavaServer Pages (JSP) and Java. 
+Hangman game is a dynamic web project, unfortunately GitHub supports static webpages only. The game is coded using JavaServer Pages (JSP) and Java. 
