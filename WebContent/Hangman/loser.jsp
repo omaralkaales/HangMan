@@ -9,6 +9,6 @@
 <body>
 	SORRY YOU LOST :( <BR>
 	The Word is: ${theWord} <br>
-	PLAY AGAIN? <a href="index.html">Yes</a>  <a href="close.jsp">NO</a>
+	PLAY AGAIN? <a href="index.jsp">Yes</a>  <a href="close.jsp">NO</a>
 </body>
 </html>

@@ -46,7 +46,11 @@ public class ResultBuilder {
 	}
 		
 		
-	//this constructor used for initializing result string with only dashes
+	/**this constructor used for initializing result string with only dashes
+	 * 
+	 * @param wordSize  mysterious word size chosen by player
+	 * @param wordsList list of words with the chosen size 
+	 */
 	public ResultBuilder(int wordSize, Set<String> wordsList) {
 		this.winner=false;
 		result = new StringBuilder();
@@ -58,6 +62,7 @@ public class ResultBuilder {
 		
 	}
 	
+	// select a random word the be themysterious word
 	private String getRandomWord(Set<String> wordsList) {
 		
 			String newWord = "";
@@ -75,8 +80,11 @@ public class ResultBuilder {
 	}
 
 
-	//this constructor is used for retreiving current result (the player progress in guessing
-	//the word
+	/**this constructor is used for retreiving current result (the player progress in guessing
+	 * the word
+	 * 
+	 * @param guess current player guess
+	 */
 	public ResultBuilder(String guess) {
 		
 		this.winner=false;
@@ -85,38 +93,53 @@ public class ResultBuilder {
 	}
 	
 	
-	/* GETTERS / ACCESSORS*/
+	/**
+	 * 
+	 * @return String current guessed letters   
+	 */
 	
 	public String getResult() {
 		return result.toString();
 	}
-
+	
+	/**
+	 * 
+	 * @return int mistakes left
+	 */
 	public int getCount() {
 		return count;
 	}
 	
+	/**
+	 * 
+	 * @return String the mysterous word
+	 */
 	public String getWord() {
 		return this.word;
 	}
 	
+	/**
+	 * 
+	 * @return boolean check if the player won the game
+	 */
 	public boolean isWinner() {
 		return winner;
 	}
 	
 	
-	/* SETTERS / GETTERS */
-	
+	/**
+	 * 
+	 * @param newCount set a new value for mistakes count
+	 */
 	public void setCount(int newCount) {
 		count = newCount;
 	}
 	
-	public void setWord(String word) {
-		this.word=word;
-	}
-
-
+	
+	
+	
 	/**
-	 * @return the choicesMade
+	 * @return a set of letter already chosen by the player
 	 */
 	public Set<String> getChoicesMade() {
 		return choicesMade;
@@ -124,10 +147,10 @@ public class ResultBuilder {
 
 
 	/**
-	 * @param choicesMade the choicesMade to set
+	 * @param newChoicesMade add new values to the set of choices made
 	 */
-	public void setChoicesMade(Set<String> choicesMade) {
-		this.choicesMade.addAll(choicesMade);
+	public void setChoicesMade(Set<String> newChoicesMade) {
+		this.choicesMade.addAll(newChoicesMade);
 	}
 
 	/**
@@ -155,5 +178,14 @@ public class ResultBuilder {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @param the mysterious word
+	 */
+	public void setWord(String word) {
+		this.word = word;
+		
 	}
 }
