@@ -9,28 +9,21 @@
 <body>
 	
 	<form action="PlayingHangMan" method="post">
-		<input list="alphabet" name="guess">
-			<datalist id="alphabet">
-			  	<option value="A"><option value="B"><option value="C"><option value="D">
-			    <option value="E"><option value="F"><option value="G"><option value="H">
-			    <option value="I"><option value="J"><option value="K"><option value="L">
-			    <option value="M"><option value="N"><option value="O"><option value="P">
-			    <option value="Q"><option value="R"><option value="S"><option value="T">
-			    <option value="U"><option value="V"><option value="W"><option value="X">
-		      	<option value="Y"><option value="Z">
-			</datalist>
-			
+		<select name="guess" >
+			  	<option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+			    <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+			    <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+			    <option value="M">M</option><option value="N">N</option><option value="O">O</option><option value="P">P</option>
+			    <option value="Q">Q</option><option value="R">R</option><option value="S">S</option><option value="T">T</option>
+			    <option value="U">U</option><option value="V">V</option><option value="W">W</option><option value="X">X</option>
+		      	<option value="Y">Y</option><option value="Z">Z</option>
+			</select>
 			<input type="submit" value="Guess!"> 
 	</form>
 	
 	<br><br>
-	<%
-		String guess = (String) session.getAttribute("guess");
-		if (guess != null){
-			out.write("You chose: " +guess+"<br>");
-		}
-	%>
 	
+	You chose: ${guess} ${alreadyChosen}<br>
 	You have ${mistakesLeft} mistakes left, if zero you lose! <br>
 	Result is: ${result}<br>
 

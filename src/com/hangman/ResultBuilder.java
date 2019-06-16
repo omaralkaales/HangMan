@@ -1,7 +1,6 @@
 package com.hangman;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Set;
  * 
  * 
  *
- * TrieMaps may not contain null keys or values.
+ * 
  *
  * @param int
  *            accepts the a number of the initial size of the String
@@ -34,30 +33,55 @@ public class ResultBuilder {
 	
 	
 	
-	private StringBuilder result;
-	private int count=5;
-	private Set<String> words;
-	private boolean winner;
+	private StringBuilder result; // the resut string returned to player
+	private int count = 5; // number of mistakes allowed
+	private String word; // the mysterious word the player have to guess
+	private Set<String> choicesMade; // a list of letters choosen by player
+	private boolean winner;  // check if the player won the game or not
+	
+	
+	
 	public ResultBuilder() {
-		this(0);
+		this(0, null);
 	}
 		
 		
 	//this constructor used for initializing result string with only dashes
-	public ResultBuilder(int wordSize) {
+	public ResultBuilder(int wordSize, Set<String> wordsList) {
 		this.winner=false;
 		result = new StringBuilder();
 		for (int i=0;i<wordSize; i++) {
 			result.append('-');
 		}
+		this.word = getRandomWord(wordsList);
+		choicesMade = new HashSet<String>();
+		
 	}
 	
+	private String getRandomWord(Set<String> wordsList) {
+		
+			String newWord = "";
+			int random = (int) (Math.random() * wordsList.size()) ;
+			int counter =0;
+			System.out.println(random +" "+wordsList.size());
+			for (String word : wordsList) {
+				if (counter == random) {
+					newWord = word;
+					break;
+				}
+				counter++;
+			}
+			return newWord;
+	}
+
+
 	//this constructor is used for retreiving current result (the player progress in guessing
 	//the word
 	public ResultBuilder(String guess) {
 		
 		this.winner=false;
 		result = new StringBuilder(guess);
+		choicesMade = new HashSet<String>();
 	}
 	
 	
@@ -71,8 +95,8 @@ public class ResultBuilder {
 		return count;
 	}
 	
-	public Set<String> getWords() {
-		return this.words;
+	public String getWord() {
+		return this.word;
 	}
 	
 	public boolean isWinner() {
@@ -80,55 +104,48 @@ public class ResultBuilder {
 	}
 	
 	
-	/* SETTERS / MUTATORS */
+	/* SETTERS / GETTERS */
 	
 	public void setCount(int newCount) {
 		count = newCount;
 	}
 	
-	public void setWords(Set<String> words) {
-		this.words=words;
+	public void setWord(String word) {
+		this.word=word;
 	}
 
 
-	public void checkGuess(String level,String guess) {
-		if (level.equals("easy")) {
-			easy(guess);
-		}else {
-			
-			
-		}
-		
-		
+	/**
+	 * @return the choicesMade
+	 */
+	public Set<String> getChoicesMade() {
+		return choicesMade;
 	}
 
-	
-	/* HELPER METHODS */
-	
-	//pick a random word and delete all other words in the set
-	private void easy(String guess) {
-		if (words.size()>1) {	
-			Set<String> newWords = new HashSet<String>();
-			int random = (int) (Math.random() * words.size()) ;
-			int counter =0;
-			System.out.println(random +" "+words.size());
-			for (String word : words) {
-				if (counter == random) {
-					newWords.add(word);
-					break;
-				}
-				counter++;
-			}
-			words = newWords;
+
+	/**
+	 * @param choicesMade the choicesMade to set
+	 */
+	public void setChoicesMade(Set<String> choicesMade) {
+		this.choicesMade.addAll(choicesMade);
+	}
+
+	/**
+	 * @param guess the letter the player is selected
+	 * 
+	 * @return true if guess already chosen before, false otherwise
+	 */
+	public boolean checkGuess(String guess) {
+		//pick a random word and delete all other words in the set
+		System.out.println(word);
+		System.out.println(choicesMade);
+		if (choicesMade.contains(guess)) {
+			return true;
 		}
-		System.out.println(words.toString());
-		Iterator<String> itr = words.iterator();
-		String word = itr.next();
 		if (!word.contains(guess)) {
 			this.count--;
 		}else {
 			for (int i=0;i<word.length();i++) {
-				
 				if (word.charAt(i) == guess.charAt(0)) {
 					this.result.replace(i, i+1, guess);
 				}
@@ -137,5 +154,6 @@ public class ResultBuilder {
 				winner = true;
 			}
 		}
+		return false;
 	}
 }
